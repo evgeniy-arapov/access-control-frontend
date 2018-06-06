@@ -1,14 +1,14 @@
 {
   "name": "react-rbac",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "server",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["react", "redux"],
+  "author": "Evgeniy Arapov",
   "license": "ISC",
   "dependencies": {
     "babel-runtime": "^6.26.0",
