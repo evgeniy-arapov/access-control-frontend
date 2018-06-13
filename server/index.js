@@ -4,7 +4,7 @@ const path = require("path");
 
 const app = new (require("koa"))();
 const router = new (require("koa-router"))();
-const port = 3000;
+const port = 3100;
 
 const koaWebpack = require("koa-webpack");
 
@@ -18,9 +18,9 @@ koaWebpack({compiler})
     router.get("*", async ctx => {
       ctx.type = "html";
       ctx.body = await new Promise((resolve, reject) => {
-        fs.readFile(path.join(compiler.outputPath, 'index.html'), (err,file) => {
-          if(err) reject(err);
-          resolve(file)
+        fs.readFile(path.join(compiler.outputPath, "index.html"), (err, file) => {
+          if (err) reject(err);
+          resolve(file);
         });
       });
     });
