@@ -1,4 +1,4 @@
-import { Schema, Document } from "mongoose";
+import { Schema, Document } from "mongoose/browser";
 
 export const userSchema = new Schema({
   displayName: String,
@@ -8,8 +8,16 @@ export const userSchema = new Schema({
     required: true
   },
   jwt: String,
-  role: String
-});
+  role: {
+    type: String,
+    required: true,
+    default: "user"
+  },
+  id: {
+    type: Schema.Types.ObjectId,
+    required: false
+  }
+}, { _id: false });
 
 export default class UserModel extends Document {
   constructor (obj, fields, skipId, skipInit) {

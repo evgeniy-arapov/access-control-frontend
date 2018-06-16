@@ -6,6 +6,7 @@ const webpack = require("webpack");
 
 module.exports = {
   mode: ENV,
+  target: "web",
   devtool: "cheap-module-eval-source-map",
   entry: [
     "babel-polyfill",

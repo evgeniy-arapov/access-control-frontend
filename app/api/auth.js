@@ -1,22 +1,22 @@
-//import { baseUrl } from "./serverConfig";
-import User from "models/user";
-
-const fixture = {
-  displayName: "Temp",
-  email: "example@mail.com",
-  jwt: "cdvdfsb chjdfsbvdjfsbvsdf",
-  role: "user"
-};
+import { apiRootUrl, defaultHeaders as headers } from "./serverConfig";
 
 export function login (authData) {
-  //return fetch(`${baseUrl}`, {
-  //  method: "POST",
-  //  body: authData
-  //});
-  
-  console.log(authData);
+  return fetch(`${apiRootUrl}/auth/login`, {
+    method: "POST",
+    body: authData
+  });
+}
 
-  return new Promise(resolve => {
-    setTimeout(resolve(new User(fixture)), 1000);
+export function logout () {
+  return fetch(`${apiRootUrl}/auth/logout`, {
+    method: "GET",
+    headers
+  });
+}
+
+export function register (authData) {
+  return fetch(`${apiRootUrl}/auth/register`, {
+    method: "POST",
+    body: authData
   });
 }

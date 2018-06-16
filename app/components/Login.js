@@ -7,7 +7,7 @@ export default class Login extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      login: "",
+      email: "",
       password: ""
     };
   }
@@ -27,10 +27,10 @@ export default class Login extends Component {
         <br/>
         <FormGroup>
           <FormControl
-            type={"text"}
-            value={this.state.login}
-            name={"login"}
-            placeholder={"Login"}
+            type={"email"}
+            value={this.state.email}
+            name={"email"}
+            placeholder={"Email"}
             onChange={::this.handleChange}
           />
           <br/>
