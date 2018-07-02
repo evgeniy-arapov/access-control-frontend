@@ -5,14 +5,14 @@ import { Provider } from "react-redux";
 import App from "containers/App";
 import { hot } from "react-hot-loader";
 import configureStore from "store/configureStore";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const store = configureStore();
 
 render(
   <Provider store={store}>
     <Router>
-      <Route path="/" component={App}/>
+      <App/>
     </Router>
   </Provider>,
   document.getElementById("root")

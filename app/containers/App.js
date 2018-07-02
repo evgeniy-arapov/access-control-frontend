@@ -3,24 +3,35 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Login from "components/Login";
 import Home from "components/Home";
+import About from "components/About";
 import { Grid } from "react-bootstrap";
 import * as authActions from "actions/AuthActions";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 
-class App extends Component {
+export class App extends Component {
   render () {
-    let { isAuthenticated } = this.props.auth;
-    const { login } = this.props.authActions;
-    console.log(isAuthenticated);
-    return <Grid>
-      {isAuthenticated ? <Home/> : <Login login={login}/>}
-    </Grid>;
+    let {isAuthenticated} = this.props;
+    const {login} = this.props.authActions;
+    const {pathname} = this.props.location;
+    if(!isAuthenticated && pathname !== "/login") return <Redirect to="/login"/>;
+    return (
+      <Grid>
+        <div>isAuthenticated: {isAuthenticated.toString()}</div>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About}/>
+          <Route path={"/login"} render={() => <Login login={login}/>}/>
+        </Switch>
+      </Grid>
+    );
   }
 }
 
 function mapStateToProps (state) {
-  return state;
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
 }
-
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -28,4 +39,4 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

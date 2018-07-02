@@ -1,7 +1,7 @@
 import * as AUTH from "constants/Auth";
 import { defaultHeaders } from "api/serverConfig";
 
-const initialState = {
+export const initialState = {
   user: null,
   jwt: null,
   isAuthenticated: false,

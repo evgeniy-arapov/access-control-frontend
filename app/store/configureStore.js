@@ -5,7 +5,6 @@ import { createLogger } from "redux-logger";
 
 export default function configureStore (initialState) {
   const logger = createLogger();
-  console.log(process.env.NODE_ENV);
   const store = createStore(
     rootReducer,
     initialState,

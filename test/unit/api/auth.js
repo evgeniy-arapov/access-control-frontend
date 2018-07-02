@@ -3,11 +3,16 @@ import { defaultHeaders } from "app/api/serverConfig";
 import sinon from "sinon";
 import { user, jwt, authData } from "test/fixtures/auth";
 
-const stubedFetch = sinon.stub(global, "fetch");
-
-describe("API", () => {
+describe("Unit Auth API", () => {
+  let stubedFetch;
+  before(() => {
+    stubedFetch = sinon.stub(global, "fetch");
+  });
   beforeEach(async () => {
     stubedFetch.resolves(mockApiResponse({jwt, user}));
+  });
+  after(() => {
+    stubedFetch.restore();
   });
   describe("register", () => {
     it("should register new user", async () => {
