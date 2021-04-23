@@ -7,8 +7,8 @@ export default class Login extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      email: "altaderika@gmail.com",
+      password: "12345678"
     };
   }
 
@@ -21,6 +21,7 @@ export default class Login extends Component {
   }
 
   render () {
+    console.log(this.props);
     return (
       <form>
         <br/>

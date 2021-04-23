@@ -50,7 +50,7 @@ describe("Unit <App />", () => {
             <ConnectedApp/>
           </MemoryRouter>
         </Provider>);
-      console.log(wrapper.html());
+      //console.log(wrapper.html());
       wrapper.find(Home).length.should.be.eql(1);
       wrapper.find(Login).length.should.be.eql(0);
     });

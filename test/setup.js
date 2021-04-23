@@ -17,9 +17,4 @@ global.raf = global.requestAnimationFrame = cb => {
   setTimeout(cb, 0);
 };
 
-//import React from "react";
-//import * as rrd from "react-router-dom";
-//// Render plain div with its children
-//// We need to mock it because it’ll overlap with our MemoryRouter 
-//// and causing the initialEntries not working.
-//rrd.BrowserRouter = ({children}) => <div>{children}</div>;
+console.log = require("test/utils/logger");

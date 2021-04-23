@@ -10,6 +10,7 @@ export const initialState = {
 };
 
 export default function auth (state = initialState, action) {
+  const { jwt, user } = action.payload && action.payload.body || {};
   switch (action.type) {
     case AUTH.LOGIN_REQUEST:
     case AUTH.REGISTER_REQUEST:
@@ -18,14 +19,14 @@ export default function auth (state = initialState, action) {
 
     case AUTH.LOGIN_SUCCESS:
     case AUTH.REGISTER_SUCCESS:
-      localStorage.jwt = action.payload.jwt;
-      localStorage.user = action.payload.user;
-      defaultHeaders.append("Authorization", `Bearer ${action.payload.jwt}`);
+      localStorage.jwt = jwt;
+      localStorage.user = user;
+      defaultHeaders.append("Authorization", `Bearer ${jwt}`);
       return {
         ...state,
         fetching: false,
-        user: action.payload.user,
-        jwt: action.payload.jwt,
+        user,
+        jwt,
         isAuthenticated: true
       };
 

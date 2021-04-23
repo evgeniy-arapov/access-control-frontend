@@ -13,13 +13,15 @@ export class App extends Component {
     let {isAuthenticated} = this.props;
     const {login} = this.props.authActions;
     const {pathname} = this.props.location;
+    console.log(isAuthenticated);
     if(!isAuthenticated && pathname !== "/login") return <Redirect to="/login"/>;
+    if(isAuthenticated && pathname === "/login") return <Redirect to="/"/>;
+
     return (
       <Grid>
-        <div>isAuthenticated: {isAuthenticated.toString()}</div>
         <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path="/about" component={About}/>
+          <Route exact path={"/"} component={Home}/>
+          <Route path={"/about"} component={About}/>
           <Route path={"/login"} render={() => <Login login={login}/>}/>
         </Switch>
       </Grid>

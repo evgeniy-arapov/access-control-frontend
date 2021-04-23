@@ -18,16 +18,14 @@ describe("Unit Auth API", () => {
     it("should register new user", async () => {
       const response = await register(authData);
       response.status.should.be.eql(200);
-      const userData = await response.json();
-      userData.should.deepEqual({jwt, user});
+      response.body.should.deepEqual({jwt, user});
     });
   });
   describe("login", () => {
     it("should have success", async () => {
       const response = await login(authData);
       response.status.should.be.eql(200);
-      const userData = await response.json();
-      userData.should.deepEqual({jwt, user});
+      response.body.should.deepEqual({jwt, user});
     });
   });
   describe("logout", () => {

@@ -1,36 +1,64 @@
 import React from "react";
+import { render } from "react-dom";
+import { Simulate } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import ConnectedApp, { App } from "containers/App";
-import Login from "components/Login";
+import ConnectedApp from "containers/App";
 import configureStore from "store/configureStore";
-import { MemoryRouter, Route } from "react-router-dom";
-import { authData } from "test/fixtures/auth";
+import { MemoryRouter } from "react-router-dom";
+import { authData, user, jwt } from "test/fixtures/auth";
+import { defaultHeaders } from "app/api/serverConfig";
 
-import Enzyme from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import sinon from "sinon";
+import * as authActions from "actions/AuthActions";
 
-Enzyme.configure({adapter: new Adapter()});
-const {mount} = Enzyme;
+authActions.login = sinon.spy(authActions.login);
 
 describe("Integration Auth", () => {
-  //const initialState = {
-  //  auth
-  //};
-  let store, wrapper;
-
+  let store;
+  let stubedFetch;
+  before(() => {
+    stubedFetch = sinon.stub(global, "fetch");
+  });
+  after(() => {
+    stubedFetch.restore();
+  });
   beforeEach(() => {
+    stubedFetch.resolves(mockApiResponse({jwt, user}));
     store = configureStore();
-    wrapper = mount(
+
+    let root = document.createElement("div");
+    root.setAttribute("id", "root");
+    document.body.appendChild(root);
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={["/"]}>
           <ConnectedApp/>
         </MemoryRouter>
-      </Provider>);
+      </Provider>,
+      root);
   });
 
-  it("should work", () => {
-    wrapper.find("input").hostNodes().length.should.be.eql(2);
+  it.only("should work", async () => {
+    const email = document.querySelector("[name='email']");
+    email.should.be.ok();
+    const password = document.querySelector("[name='password']");
+    password.should.be.ok();
+
+    email.value = authData.email;
+    Simulate.change(email);
+    password.value = authData.password;
+    Simulate.change(password);
+
+    const btn = document.querySelector("button");
+    Simulate.click(btn);
     
-    wrapper.find(Login).length.should.be.eql(1);
+    console.log(document.getElementById("root").innerHTML);
   });
 });
+
+function mockApiResponse (body = {}) {
+  return new Response(JSON.stringify(body), {
+    status: 200,
+    headers: defaultHeaders
+  });
+}

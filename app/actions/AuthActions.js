@@ -8,6 +8,7 @@ export function login (authData) {
     });
     let response;
     try {
+      console.log(authData);
       response = await loginAPI(authData);
       if (!response.error)
         dispatch({

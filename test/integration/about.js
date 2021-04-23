@@ -37,7 +37,6 @@ describe("Integration About", () => {
 
   it("should work", () => {
     //wrapper.find("input").hostNodes().length.should.be.eql(2);
-    console.log(wrapper.html());
     wrapper.find(About).length.should.be.eql(1);
   });
 });

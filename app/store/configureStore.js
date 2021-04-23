@@ -5,17 +5,30 @@ import { createLogger } from "redux-logger";
 
 export default function configureStore (initialState) {
   const logger = createLogger();
+  let middleware;
+
+  switch (process.env.NODE_ENV) {
+    case "production":
+      middleware = [thunk]; break;
+    case "test":
+      middleware = [thunk]; break;
+
+    default:
+      middleware = [logger, thunk];
+  }
+
   const store = createStore(
     rootReducer,
     initialState,
-    process.env.NODE_ENV !== "production" ? applyMiddleware(logger, thunk)
-      : applyMiddleware(thunk)
+    applyMiddleware(...middleware)
   );
+
   if (module.hot) {
     module.hot.accept("../reducers", () => {
       const nextRootReducer = require("reducers");
       store.replaceReducer(nextRootReducer);
     });
   }
+
   return store;
 }
